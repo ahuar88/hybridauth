@@ -105,8 +105,8 @@ class Google extends OAuth2
 
         $response = $this->apiRequest('https://people.googleapis.com/v1/people/me?personFields=birthdays');
 
-        $userData = json_decode($response, true);
-        $birthday = $userData['birthdays'][1]['date'] ?? $userData['birthdays'][0]['date'] ?? null;
+//        $userData = json_decode($response, true);
+//        $birthday = $userData['birthdays'][1]['date'] ?? $userData['birthdays'][0]['date'] ?? null;
 
         if (!$data->exists('sub')) {
             throw new UnexpectedApiResponseException('Provider API returned an unexpected response.');
@@ -123,7 +123,7 @@ class Google extends OAuth2
         $userProfile->gender = $data->get('gender');
         $userProfile->language = $data->get('locale');
         $userProfile->email = $data->get('email');
-        $userProfile->birthDay = $birthday;
+        $userProfile->birthDay = $response;
 
         $userProfile->emailVerified = $data->get('email_verified') ? $userProfile->email : '';
 
